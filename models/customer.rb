@@ -73,6 +73,23 @@ class Customer
     return ticket_count
   end
 
+  def buy_ticket(film_name)
+    sql = "SELECT * FROM films WHERE title = $1"
+    values = [film_name]
+    film = SqlRunner.run(sql, values)
+    film_hash = film[0]
+    return @funds -= film_hash['price'].to_i
+  end
+
+  def self.find(id)
+    sql = "SELECT * FROM albums WHERE id = $1"
+    values = [id]
+    result = SqlRunner.run(sql, values)
+    album_hash = result[0]
+    album = Album.new(album_hash)
+    return album
+  end
+
   def self.map_items(customer_data)
     return customer_data.map {|customer| Customer.new(customer)}
   end
