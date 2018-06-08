@@ -4,6 +4,7 @@ require_relative('../models/film')
 require( 'pry-byebug' )
 
 Customer.delete_all()
+Film.delete_all()
 
 customer1 = Customer.new({ 'name' => 'Shaun', 'funds' => 10 })
 customer1.save()
