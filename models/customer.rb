@@ -1,4 +1,5 @@
 require_relative("../db/sql_runner")
+require_relative('./ticket')
 
 class Customer
 
@@ -78,7 +79,8 @@ class Customer
     values = [film_name]
     film = SqlRunner.run(sql, values)
     film_hash = film[0]
-    return @funds -= film_hash['price'].to_i
+    @funds -= film_hash['price'].to_i
+    return Ticket.new({ 'film_id' => film_hash['id'], 'customer_id' => @id })
   end
 
   def self.find(id)
