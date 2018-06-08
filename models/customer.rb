@@ -80,7 +80,7 @@ class Customer
     film = SqlRunner.run(sql, values)
     film_hash = film[0]
     @funds -= film_hash['price'].to_i
-    return Ticket.new({ 'film_id' => film_hash['id'], 'customer_id' => @id })
+    return Ticket.new({ 'film_id' => film_hash['id'].to_i, 'customer_id' => @id })
   end
 
   def self.find(id)

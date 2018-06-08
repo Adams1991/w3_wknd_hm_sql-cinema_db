@@ -3,7 +3,7 @@ require_relative("../db/sql_runner")
 class Screening
 
   attr_reader :id
-  attr_accessor :time, :film_id
+  attr_accessor :screening_time, :film_id
 
   def initialize( options )
     @id = options['id'].to_i if options['id']
@@ -27,5 +27,36 @@ class Screening
     @id = screenings['id'].to_i
   end
 
+
+  def update
+    sql = "UPDATE screenings SET screening_time = $1, film_id = $2 WHERE id = $3"
+    values = [@screening_time, @film_id,@id]
+    SqlRunner.run(sql, values)
+  end
+
+  def self.all()
+    sql = "SELECT * FROM screenings"
+    values = []
+    screenings = SqlRunner.run(sql, values)
+    result = Screening.map_items(screenings)
+    return result
+  end
+
+  def self.delete_all()
+    sql = "DELETE FROM screenings"
+    values = []
+    SqlRunner.run(sql, values)
+  end
+
+  def delete()
+    sql = "DELETE FROM screenings WHERE id = $1"
+    values = [@id]
+    SqlRunner.run(sql, values)
+  end
+
+
+  def self.map_items(screening_data)
+    return screening_data.map {|screening| Screening.new(screening)}
+  end
 
 end
