@@ -27,4 +27,16 @@ class Customer
     @id = customers['id'].to_i
   end
 
+  def self.all()
+    sql = "SELECT * FROM customers"
+    values = []
+    customers = SqlRunner.run(sql, values)
+    result = Customer.map_items(customers)
+    return result
+  end
+
+  def self.map_items(customer_data)
+    return customer_data.map {|customer| Customer.new(customer)}
+  end
+
 end
