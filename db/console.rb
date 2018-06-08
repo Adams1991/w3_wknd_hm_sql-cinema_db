@@ -21,6 +21,9 @@ film2 = Film.new({ 'title' => 'Grease', 'price' => 12 })
 film1.save()
 film2.save()
 
+screening1 = Screening.new({ 'time' => '23:00', 'film_id' => film1.id })
+screening1.save()
+
 ticket1 = Ticket.new({ 'film_id' => film1.id, 'customer_id' => customer1.id })
 ticket2 = Ticket.new({ 'film_id' => film1.id, 'customer_id' => customer1.id })
 ticket3 = Ticket.new({ 'film_id' => film1.id, 'customer_id' => customer2.id })
