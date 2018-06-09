@@ -1,4 +1,5 @@
 require_relative("../db/sql_runner")
+require_relative('./ticket')
 
 class Film
 
@@ -73,7 +74,7 @@ class Film
     return customer_attendance
   end
 
-  def tickets_sold_for_film()
+  def all_tickets_sold_for_film()
     sql = "SELECT tickets.*
     FROM tickets
     LEFT JOIN screenings
@@ -81,9 +82,9 @@ class Film
     WHERE screenings.film_id = $1"
     values = [@id]
     film_data = SqlRunner.run(sql, values)
-    return Ticket.map_items(film_data).count()
+    return Ticket.map_items(film_data)
   end
-
+  
   def self.map_items(film_data)
     return film_data.map {|film| Film.new(film)}
   end

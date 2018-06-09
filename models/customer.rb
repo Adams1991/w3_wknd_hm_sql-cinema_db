@@ -87,12 +87,12 @@ class Customer
   end
 
   def self.find(id)
-    sql = "SELECT * FROM albums WHERE id = $1"
+    sql = "SELECT * FROM customers WHERE id = $1"
     values = [id]
     result = SqlRunner.run(sql, values)
-    album_hash = result[0]
-    album = Album.new(album_hash)
-    return album
+    customer_hash = result[0]
+    customer = Customer.new(customer_hash)
+    return customer
   end
 
   def self.map_items(customer_data)
