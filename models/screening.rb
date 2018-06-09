@@ -54,7 +54,7 @@ class Screening
     SqlRunner.run(sql, values)
   end
 
-  def tickets_sold()
+  def tickets_sold_for_screening()
     sql = "SELECT tickets.*
     FROM tickets
     WHERE screening_id = $1"

@@ -50,6 +50,7 @@ class Ticket
     SqlRunner.run(sql, values)
   end
 
+
   def self.map_items(ticket_data)
     result = ticket_data.map { |ticket| Ticket.new(ticket) }
     return result

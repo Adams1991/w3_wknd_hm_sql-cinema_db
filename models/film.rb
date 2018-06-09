@@ -73,6 +73,17 @@ class Film
     return customer_attendance
   end
 
+  def tickets_sold_for_film()
+    sql = "SELECT tickets.*
+    FROM tickets
+    LEFT JOIN screenings
+    ON screenings.id = tickets.screening_id
+    WHERE screenings.film_id = $1"
+    values = [@id]
+    film_data = SqlRunner.run(sql, values)
+    return Ticket.map_items(film_data).count()
+  end
+
   def self.map_items(film_data)
     return film_data.map {|film| Film.new(film)}
   end
