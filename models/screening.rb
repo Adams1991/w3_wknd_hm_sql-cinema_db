@@ -29,8 +29,8 @@ class Screening
 
 
   def update
-    sql = "UPDATE screenings SET screening_time = $1, film_id = $2 WHERE id = $3"
-    values = [@screening_time, @film_id,@id]
+    sql = "UPDATE screenings SET screening_time = $1 WHERE id = $2"
+    values = [@screening_time, @id]
     SqlRunner.run(sql, values)
   end
 
