@@ -81,10 +81,16 @@ class Film
     ON screenings.id = tickets.screening_id
     WHERE screenings.film_id = $1"
     values = [@id]
-    film_data = SqlRunner.run(sql, values)
-    return Ticket.map_items(film_data)
+    ticket_data = SqlRunner.run(sql, values)
+    return Ticket.map_items(ticket_data)
   end
-  
+
+  def most_popular_screening_id
+    ticket_array = all_tickets_sold_for_film
+    id_array = ticket_array.map{ |ticket| ticket.screening_id()}
+    
+  end
+
   def self.map_items(film_data)
     return film_data.map {|film| Film.new(film)}
   end
