@@ -54,6 +54,15 @@ class Screening
     SqlRunner.run(sql, values)
   end
 
+  def tickets_sold()
+    sql = "SELECT tickets.*
+    FROM tickets
+    WHERE screening_id = $1"
+    values = [@id]
+    ticket_count = SqlRunner.run(sql, values).count()
+    return ticket_count
+  end
+
 
   def self.map_items(screening_data)
     return screening_data.map {|screening| Screening.new(screening)}
