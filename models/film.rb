@@ -1,5 +1,6 @@
 require_relative("../db/sql_runner")
 require_relative('./ticket')
+require_relative('./screening')
 
 class Film
 
@@ -90,6 +91,15 @@ class Film
     id_array = ticket_array.map{ |ticket| ticket.screening_id()}
     freq = id_array.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
     return id_array.max_by { |v| freq[v] }
+  end
+
+  def most_popular_screening_time
+    sql = "SELECT *
+    FROM screenings
+    WHERE id = $1"
+    values = [most_popular_screening_id()]
+    screening_data = SqlRunner.run(sql, values)
+    return Screening.map_items(screening_data)
   end
 
   def self.map_items(film_data)
