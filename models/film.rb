@@ -99,7 +99,7 @@ class Film
     WHERE id = $1"
     values = [most_popular_screening_id()]
     screening_data = SqlRunner.run(sql, values)
-    return screening_data[0]
+    return screening_data[0]['screening_time']
   end
 
   def self.map_items(film_data)
