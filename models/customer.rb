@@ -77,14 +77,14 @@ class Customer
 
 
 # not dynamic needs to be able to pick name and screening time
-  def buy_ticket(film_name)
+  def buy_ticket(film_name, screening_time)
     sql = "SELECT * FROM films WHERE title = $1"
     values = [film_name]
     film = SqlRunner.run(sql, values)
     film_hash = film[0]
     @funds -= film_hash['price'].to_i
     update()
-    ticket = Ticket.new({ 'film_id' => film_hash['id'].to_i, 'customer_id' => @id, 'screening_id' => Screening.find_screening_id(film_hash['id'].to_i)})
+    ticket = Ticket.new({ 'film_id' => film_hash['id'].to_i, 'customer_id' => @id, 'screening_id' => Screening.find_screening_id(film_hash['id'].to_i, screening_time)})
     ticket.save()
     return ticket
   end
