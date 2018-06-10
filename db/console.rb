@@ -36,7 +36,7 @@ ticket1 = Ticket.new({ 'film_id' => film1.id, 'customer_id' => customer1.id, 'sc
 
 ticket2 = Ticket.new({ 'film_id' => film1.id, 'customer_id' => customer1.id, 'screening_id' => screening1.id })
 
-ticket3 = Ticket.new({ 'film_id' => film1.id, 'customer_id' => customer2.id, 'screening_id' => screening1.id })
+ticket3 = Ticket.new({ 'film_id' => film1.id, 'customer_id' => customer2.id, 'screening_id' => screening2.id })
 
 ticket4 = Ticket.new({ 'film_id' => film1.id, 'customer_id' => customer3.id, 'screening_id' => screening2.id })
 

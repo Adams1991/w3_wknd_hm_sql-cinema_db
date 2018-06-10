@@ -75,12 +75,12 @@ class Customer
     return ticket_count
   end
 
-# breaks if tickets available for screening == 0 as find_screening_id returns string
   def buy_ticket(film_name, screening_time)
     sql = "SELECT * FROM films WHERE title = $1"
     values = [film_name]
     film = SqlRunner.run(sql, values)
     film_hash = film[0]
+    return "No tickets available" if Screening.find_screening_id(film_hash['id'].to_i, screening_time) == "Not available"
     @funds -= film_hash['price'].to_i
     update()
     ticket = Ticket.new({ 'film_id' => film_hash['id'].to_i, 'customer_id' => @id, 'screening_id' => Screening.find_screening_id(film_hash['id'].to_i, screening_time)})
