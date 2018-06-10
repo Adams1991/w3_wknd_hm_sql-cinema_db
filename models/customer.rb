@@ -81,6 +81,7 @@ class Customer
     film = SqlRunner.run(sql, values)
     film_hash = film[0]
     return "No tickets available" if Screening.find_screening_id(film_hash['id'].to_i, screening_time) == "Not available"
+    return "Not enough cash" if @funds < film_hash['price'].to_i
     @funds -= film_hash['price'].to_i
     update()
     ticket = Ticket.new({ 'film_id' => film_hash['id'].to_i, 'customer_id' => @id, 'screening_id' => Screening.find_screening_id(film_hash['id'].to_i, screening_time)})
