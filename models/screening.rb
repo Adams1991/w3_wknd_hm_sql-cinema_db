@@ -70,7 +70,7 @@ class Screening
     values = [film_id]
     screenings = SqlRunner.run(sql, values)
     result = Screening.map_items(screenings)
-    return result
+    return result.map{ |screening| screening.id()}
   end
 
   def self.map_items(screening_data)
