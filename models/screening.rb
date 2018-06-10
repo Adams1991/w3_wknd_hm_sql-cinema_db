@@ -70,6 +70,8 @@ class Screening
     values = [film_id, screening_time]
     screenings = SqlRunner.run(sql, values)
     result = Screening.map_items(screenings)
+    avail_array = result.map{ |screening| screening.available_tickets()}
+    return "Not available" if avail_array[0] == 0
     id_array = result.map{ |screening| screening.id()}
     return id_array[0]
   end

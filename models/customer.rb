@@ -75,8 +75,6 @@ class Customer
     return ticket_count
   end
 
-
-# not dynamic needs to be able to pick name and screening time
   def buy_ticket(film_name, screening_time)
     sql = "SELECT * FROM films WHERE title = $1"
     values = [film_name]
