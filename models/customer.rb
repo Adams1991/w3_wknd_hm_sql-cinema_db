@@ -75,6 +75,7 @@ class Customer
     return ticket_count
   end
 
+# breaks if tickets available for screening == 0 as find_screening_id returns string
   def buy_ticket(film_name, screening_time)
     sql = "SELECT * FROM films WHERE title = $1"
     values = [film_name]
