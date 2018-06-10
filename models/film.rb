@@ -93,6 +93,7 @@ class Film
     return id_array.max_by { |v| freq[v] }
   end
 
+# needs improvement as cannot handle two screening times being the same
   def most_popular_screening_time
     sql = "SELECT *
     FROM screenings

@@ -65,16 +65,14 @@ class Screening
     return ticket_count
   end
 
-  def self.find_screening_id(film_id)
-    sql = "SELECT * FROM screenings WHERE film_id = $1"
-    values = [film_id]
+  def self.find_screening_id(film_id, screening_time)
+    sql = "SELECT * FROM screenings WHERE film_id = $1 AND screening_time = $2"
+    values = [film_id, screening_time]
     screenings = SqlRunner.run(sql, values)
     result = Screening.map_items(screenings)
     id_array = result.map{ |screening| screening.id()}
     return id_array[0]
   end
-
-  
 
   def self.map_items(screening_data)
     return screening_data.map {|screening| Screening.new(screening)}
