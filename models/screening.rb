@@ -74,6 +74,8 @@ class Screening
     return id_array[0]
   end
 
+  
+
   def self.map_items(screening_data)
     return screening_data.map {|screening| Screening.new(screening)}
   end
