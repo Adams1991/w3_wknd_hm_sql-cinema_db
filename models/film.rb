@@ -30,13 +30,16 @@ class Film
   end
 
   def update
-    sql = "UPDATE films SET title = $1, price = $2 WHERE id = $3"
+    sql = "UPDATE films
+    SET title = $1, price = $2
+    WHERE id = $3"
     values = [@title, @price, @id]
     SqlRunner.run(sql, values)
   end
 
   def self.all()
-    sql = "SELECT * FROM films"
+    sql = "SELECT *
+    FROM films"
     values = []
     films = SqlRunner.run(sql, values)
     result = Film.map_items(films)
@@ -50,7 +53,8 @@ class Film
   end
 
   def delete()
-    sql = "DELETE FROM films WHERE id = $1"
+    sql = "DELETE FROM films
+    WHERE id = $1"
     values = [@id]
     SqlRunner.run(sql, values)
   end
@@ -101,7 +105,6 @@ class Film
     values = [most_popular_screening_id()]
     screening_data = SqlRunner.run(sql, values)
     return screening_data[0]['screening_time']
-
   end
 
   def self.map_items(film_data)

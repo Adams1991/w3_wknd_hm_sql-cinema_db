@@ -33,25 +33,31 @@ class Ticket
   end
 
   def update
-    sql = "UPDATE tickets SET film_id = $1, customer_id = $2, screening_id = $3 WHERE id = $4"
+    sql = "UPDATE tickets
+    SET film_id = $1, customer_id = $2, screening_id = $3
+    WHERE id = $4"
     values = [@film_id, @customer_id, @screening_id, @id]
     SqlRunner.run(sql, values)
   end
 
   def self.all()
-    sql = "SELECT * FROM tickets"
+    sql = "SELECT *
+    FROM tickets"
     ticket_data = SqlRunner.run(sql)
     return Ticket.map_items(ticket_data)
   end
 
   def self.delete_all()
-   sql = "DELETE FROM tickets"
-     values = []
+   sql = "DELETE
+   FROM tickets"
+   values = []
    SqlRunner.run(sql, values)
   end
 
   def delete()
-    sql = "DELETE FROM tickets WHERE id = $1"
+    sql = "DELETE
+    FROM tickets
+    WHERE id = $1"
     values = [@id]
     SqlRunner.run(sql, values)
   end

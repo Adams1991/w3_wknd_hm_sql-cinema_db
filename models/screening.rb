@@ -31,14 +31,16 @@ class Screening
 
 
   def update
-    sql = "UPDATE screenings SET screening_time = $1, film_id = $2, available_tickets = $3
+    sql = "UPDATE screenings
+    SET screening_time = $1, film_id = $2, available_tickets = $3
     WHERE id = $4"
     values = [@screening_time,@film_id,@available_tickets, @id]
     SqlRunner.run(sql, values)
   end
 
   def self.all()
-    sql = "SELECT * FROM screenings"
+    sql = "SELECT *
+    FROM screenings"
     values = []
     screenings = SqlRunner.run(sql, values)
     result = Screening.map_items(screenings)
@@ -46,13 +48,16 @@ class Screening
   end
 
   def self.delete_all()
-    sql = "DELETE FROM screenings"
+    sql = "DELETE
+    FROM screenings"
     values = []
     SqlRunner.run(sql, values)
   end
 
   def delete()
-    sql = "DELETE FROM screenings WHERE id = $1"
+    sql = "DELETE
+    FROM screenings
+    WHERE id = $1"
     values = [@id]
     SqlRunner.run(sql, values)
   end
@@ -67,7 +72,9 @@ class Screening
   end
 
   def self.find_screening_id(film_id, screening_time)
-    sql = "SELECT * FROM screenings WHERE film_id = $1 AND screening_time = $2"
+    sql = "SELECT *
+    FROM screenings
+    WHERE film_id = $1 AND screening_time = $2"
     values = [film_id, screening_time]
     screenings = SqlRunner.run(sql, values)
     result = Screening.map_items(screenings)

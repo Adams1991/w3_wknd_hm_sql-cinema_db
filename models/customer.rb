@@ -30,13 +30,16 @@ class Customer
   end
 
   def update
-    sql = "UPDATE customers SET name = $1, funds = $2 WHERE id = $3"
+    sql = "UPDATE customers
+    SET name = $1, funds = $2
+    WHERE id = $3"
     values = [@name, @funds, @id]
     SqlRunner.run(sql, values)
   end
 
   def self.all()
-    sql = "SELECT * FROM customers"
+    sql = "SELECT *
+    FROM customers"
     values = []
     customers = SqlRunner.run(sql, values)
     result = Customer.map_items(customers)
@@ -44,13 +47,15 @@ class Customer
   end
 
   def self.delete_all()
-    sql = "DELETE FROM customers"
+    sql = "DELETE
+    FROM customers"
     values = []
     SqlRunner.run(sql, values)
   end
 
   def delete()
-    sql = "DELETE FROM customers WHERE id = $1"
+    sql = "DELETE
+    FROM customers WHERE id = $1"
     values = [@id]
     SqlRunner.run(sql, values)
   end
@@ -76,11 +81,14 @@ class Customer
   end
 
   def buy_ticket(film_name, screening_time)
-    sql = "SELECT * FROM films WHERE title = $1"
+    sql = "SELECT *
+    FROM films
+    WHERE title = $1"
     values = [film_name]
     film = SqlRunner.run(sql, values)
     film_hash = film[0]
-    return "No tickets available" if Screening.find_screening_id(film_hash['id'].to_i, screening_time) == "Not available"
+    return "No tickets available" if Screening.find_screening_id(film_hash['id'].to_i,
+    screening_time) == "Not available"
     return "Not enough cash" if @funds < film_hash['price'].to_i
     @funds -= film_hash['price'].to_i
     update()
@@ -90,7 +98,9 @@ class Customer
   end
 
   def self.find(id)
-    sql = "SELECT * FROM customers WHERE id = $1"
+    sql = "SELECT *
+    FROM customers
+    WHERE id = $1"
     values = [id]
     result = SqlRunner.run(sql, values)
     customer_hash = result[0]
